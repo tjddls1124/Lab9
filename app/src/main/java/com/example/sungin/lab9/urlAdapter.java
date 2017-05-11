@@ -3,12 +3,15 @@ package com.example.sungin.lab9;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,11 +22,21 @@ import java.util.ArrayList;
 public class urlAdapter extends BaseAdapter {
     ArrayList<webSite> data;
     Context context;
-
+    public static webSite a;
     public urlAdapter(ArrayList<webSite> data, Context context) {
         this.data = data;
         this.context = context;
     }
+
+    @JavascriptInterface
+    public void sendWeb(String siteName , String url) {
+        a = new webSite(siteName, url);
+        Intent intent = new Intent(context,MainActivity.class);
+        intent.putExtra("site",a.getSiteName());
+        intent.putExtra("url",a.getUrl());
+        context.startActivity(intent);
+    }
+
 
     @Override
     public int getCount() {

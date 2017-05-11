@@ -20,6 +20,7 @@ import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -39,15 +40,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         if (item.getItemId() == R.id.menu_add) {
             listView.setVisibility(View.GONE);
+            webView.loadUrl("file:///android_asset/www/urladd.html");
             webView.setVisibility(View.VISIBLE);
-            webView.loadUrl("file:///android_asset/www/index.html");
-        }
-        else if (item.getItemId() == R.id.menu_list)
-            listView.setVisibility(View.VISIBLE);
-            webView.setVisibility(View.GONE);
 
+        } else if (item.getItemId() == R.id.menu_list)
+            listView.setVisibility(View.VISIBLE);
+        webView.setVisibility(View.VISIBLE);
         return super.onOptionsItemSelected(item);
     }
 
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         webList.add(new webSite("한양", "http://www.hanyang.ac.kr"));
+        webList.add(new webSite("서강", "http://sugang.ac.kr"));
 
         listView = (ListView) findViewById(R.id.listview);
         webView = (WebView) findViewById(R.id.WebView);
@@ -71,10 +73,26 @@ public class MainActivity extends AppCompatActivity {
         final ProgressDialog progressDialog;
         progressDialog = new ProgressDialog(this);
 
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.addJavascriptInterface(new JavaScriptMethod(), "android");
+
+        webView.addJavascriptInterface(adapter, "myApp");
+
+        Intent intent1 = getIntent();
+        webSite a = new webSite(intent1.getStringExtra("site"), intent1.getStringExtra("url"));
+        String t= new String();
+
+        for (int i = 0; i < webList.size(); i++) {
+            if (webList.get(i).getUrl() == a.getUrl()) t="true";
+        }
+
+        if(t=="true") webView.loadUrl("javascript:siteAdd("+t+")");
+        if ( t!="true" && a.getSiteName() != null) {
+            webList.add(a);
+        }
+        adapter.notifyDataSetChanged();
+
 
         webView.setWebViewClient(new WebViewClient() {
+
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
@@ -108,8 +126,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         Intent intent = getIntent();
+        adapter.notifyDataSetChanged();
         String url = intent.getStringExtra("url");
         webView.loadUrl(url);
 

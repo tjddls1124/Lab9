@@ -6,16 +6,16 @@
     android:layout_height="match_parent"
     tools:context="com.example.sungin.lab9.MainActivity">
 
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <WebView
         android:layout_gravity="bottom"
         android:id="@+id/WebView"
         android:layout_width="match_parent"
-        android:layout_height="463dp" />
+        android:layout_height="511dp" />
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </FrameLayout>
