@@ -23,18 +23,10 @@ public class urlAdapter extends BaseAdapter {
     ArrayList<webSite> data;
     Context context;
     public static webSite a;
+
     public urlAdapter(ArrayList<webSite> data, Context context) {
         this.data = data;
         this.context = context;
-    }
-
-    @JavascriptInterface
-    public void sendWeb(String siteName , String url) {
-        a = new webSite(siteName, url);
-        Intent intent = new Intent(context,MainActivity.class);
-        intent.putExtra("site",a.getSiteName());
-        intent.putExtra("url",a.getUrl());
-        context.startActivity(intent);
     }
 
 
@@ -56,21 +48,12 @@ public class urlAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        if(convertView == null)
+        if (convertView == null)
             convertView = inflater.inflate(R.layout.listviewlayout, null);
-        TextView textView = (TextView)convertView.findViewById(R.id.textView);
-        Button button = (Button)convertView.findViewById(R.id.button);
-        textView.setText("<"+data.get(position).getSiteName()+">"+data.get(position).getUrl());
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context,MainActivity.class);
-                intent.putExtra("url",data.get(position).getUrl());
-                context.startActivity(intent);
-            }
-        });
-
+        TextView textView = (TextView) convertView.findViewById(R.id.textView);
+        textView.setText("<" + data.get(position).getSiteName() + ">");
+        TextView textView2 = (TextView) convertView.findViewById(R.id.textView2);
+        textView2.setText(data.get(position).getUrl());
 
 
         return convertView;

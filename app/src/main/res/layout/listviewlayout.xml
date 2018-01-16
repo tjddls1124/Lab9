@@ -2,23 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     android:orientation="horizontal">
 
     <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_weight="0.95"
-        android:background="#ffdbf5"
-        android:gravity="center"
-        android:text=""
-        android:textSize="17dp" />
+        android:layout_margin="10dp"
+        android:textSize="15dp"/>
 
-    <Button
-        android:id="@+id/button"
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_weight="0.05"
-        android:text="Go" />
-
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_margin="10dp"
+        android:textSize="15dp"/>
 </LinearLayout>
